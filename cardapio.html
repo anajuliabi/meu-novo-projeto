@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio de Produtos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos Gerais */
+        html, body { /* Definindo altura para html e body */
+            height: 100%; /* Ocupa 100% da altura da tela */
+            margin: 0; /* Remove margens */
+        }
+
+        body {
+            font-family: 'Snell Roundhand';
+            background-color: #ffeab6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cabeçalho */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff8e6;
+            color: rgb(4, 2, 2);
+            border-bottom: 2px solid #ffffff;
+        }
+
+        header .logo h1 {
+            margin: 0;
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgb(255, 136, 0);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #e08900;
+        }
+
+        /* Catálogo */
+        .catalogo {
+            padding: 40px 20px;
+            max-width: 1200px;
+        }
+
+        .catalogo h2 {
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgb(0, 0, 0);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover {
+            transform: scale(1.02);
+        }
+
+        .item img {
+            width: 130px;
+            height: 140px;
+            border-radius: 10px;
+            border: 3px solid #000000;
+            cursor: pointer;
+        }
+
+        .item h3 {
+            font-size: 18px;
+            color: #3d405b;
+        }
+
+        .item p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #606c38;
+        }
+
+        .preco {
+            font-size: 16px;
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        /* Estilo do Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .conteudo-modal {
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoom 0.3s;
+            border-radius: 10px;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fdd266;
+            color: #000000;
+            font-family: 'Snell Roundhand';
+            font-size: 18px;
+            width: 98%;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .fechar {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #ff0000;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .fechar:hover,
+        .fechar:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Estilos Responsivos */
+        @media (max-width: 768px) {
+            .catalogo {
+                padding: 20px 10px;
+            }
+
+            .item {
+                flex-direction: column; 
+                align-items: flex-start; 
+            }
+
+            .item img {
+                margin-bottom: 10px; 
+                width: 100%; 
+                max-width: 150px; 
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .logo h1 {
+                font-size: 20px; 
+            }
+
+            nav ul li a {
+                font-size: 16px; 
+            }
+
+            .item h3 {
+                font-size: 16px; 
+            }
+
+            .item p {
+                font-size: 12px; 
+            }
+
+            .preco {
+                font-size: 14px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Cardápio!</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="pagina_principal.html">Home</a></li>
+                <li><a href="contato.html" class="nav-link">Contato</a></li>
+                <li><a href="confeitaria.html">Confeitaria</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="catalogo">
+        <h2>Bolos mais pedidos e irresistíveis da nossa confeitaria</h2>
+
+        <div class="item">
+            <img src="img/card1" alt="Bolo Brigadeiro Morango e Leite Ninho" onclick="abrirModal(this)">
+            <div>
+                <h3>Brigadeiro Morango e Leite Ninho</h3>
+                <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.</p>
+                <p>Disponível nos tamanhos:</p>
+                <p>Tamanho P (1.3kg) - R$ 130,00<br>Tamanho M (2.4kg) - R$ 200,00</p>
+            </div>
+            <p class="preco">R$ 130,00</p>
+        </div>
+
+        <div class="item">
+            <img src="img/card2" alt="Merengue de morango (com merengue suíço)" onclick="abrirModal(this)">
+            <div>
+                <h3>Merengue de morango (com merengue suíço)</h3>
+                <p>Bolo merengue de morango</p>
+                <p>Disponível nos tamanhos:</p>
+                <p>Tamanho P rende até 10 fatias</p>
+            </div>
+            <p class="preco">R$ 120,00</p>
+        </div>
+
+        <div class="item">
+            <img src="img/card3" alt="Bolo doce de leite com crocante" onclick="abrirModal(this)">
+            <div>
+                <h3>Bolo doce de leite com crocante</h3>
+                <p>Bolo doce de leite com crocante coberto com merengue suíço e decoração com morangos frescos.</p>
+                <p>Disponível nos tamanhos:</p>
+                <p>P rende 1,200 kg - R$ 120,00<br>Médio (2.200 kg) - R$ 210,00<br>Grande (3.200 kg) - R$ 305,00</p>
+            </div>
+            <p class="preco">R$ 120,00</p>
+        </div>
+
+    <section class="catalogo">
+
+  <section class="catalog">
+        <h2>Torta</h2>
+
+
+        <div class="item">
+            <img src="img/card4" alt="Torta de limão cobertura de merengue ou chatininho" onclick="abrirModal(this)">
+            <div>
+                <h3>Torta de limão cobertura de merengue ou chatininho</h3>
+                <p>Torta de limão deliciosa com cobertura de <br>
+                    merengue suíço massaricado ou Cobertura de chantininho.<p>
+                    
+                </p> Disponível nos tamanho:</p>
+                <p>Forma 25 cm de diâmetro</p>
+
+                <p>Torta de limão deliciosa com cobertura de
+                <br> merengue suíço massaricado. R$95,00<BR>
+                Cobertura de chantininho  R$90,00</p>
+              
+            </div>
+            <p class="preco"> R$ 95,00 </p>
+        </div>
+
+
+       
+                 <div class="item">
+            <img src="img/card5" alt="Torta Rogel"onclick="abrirModal(this)">
+            <div>
+                <h3>Torta Rogel</h3>
+                <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.<p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> Tamanho P 140,00 1.200 kg serve 10 fatias<br>
+                    Tamanho médio 230,00.  2 kg serve 20 fatias<br>
+                  </p>
+                <p>Forma 25 cm de diâmetro</p>
+              <P>  Plaquinha não inclusa, valor adicional de R$15,00</P>
+
+            </div>
+            <p class="preco">R$140,00 </p>
+        </div>
+
+        
+        <div class="item">
+            <img src="img/card6" alt="Torta mil folhas de morango" onclick="abrirModal(this)">
+            <div>
+                <h3>Torta mil folhas de morango</h3>
+                <p>Feito com 3 camadas de massa folhada e<br>
+                     2 camadas de crememe patisserie com morangos frescos,<br>
+                      cobertura de chantininho ou merengue suíço 
+                    <p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> Tamanho P 1.100 kg  160,00<br>
+                    Tamanho P2 1.600 kg 190,00 <br>
+                    Tamanho médio 2.200 kg 260,00<br>
+                  </p>
+         
+        
+
+            </div>
+            <p class="preco">R$140,00 á R$260,00 </p>
+        </div>
+
+        <div class="item">
+            <img src="img/card7" alt="Merengue de Morango" onclick="abrirModal(this)">
+            <div>
+                <h3>Merengue de Morango</h3>
+                <p>Merengue de morango  (creme branco suave, com pedaços de morangos e suspiros,<BR>
+                     decoração com morangos nas laterais, cobertura de chantininho, suspiros e morangos.<p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> Tamanho P  2 litros  170,00 
+                    Tamanho médio 3 litros 240,00  <br>
+                  </p>
+            
+              <P> Adicional de travessa de acrílico R$40,00 (nova)</P>
+
+            </div>
+            <p class="preco"> R$175,00 </p>
+        </div>
+
+        
+
+        <div class="item">
+            <img src="img/card8" alt="Torta Banoff"onclick="abrirModal(this)">
+            <div>
+                <h3>Torta Banoff</h3>
+                <p>Torta banoff ( doce de leite cremoso com bananas fatiadas, canela e chantininho<BR>
+                     decoração com raspas de chocolate)<p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> Tamanho médio 8 fatias 90,00 <BR>
+                    Tamanho grande 12 fatias 120,00<br>
+                </p>
+            </div>
+            <p class="preco"> R$90,00 </p>
+        </div>
+
+
+
+        <div class="item">
+            <img src="img/card9" alt="Torta de chocolate"onclick="abrirModal(this)">
+            <div>
+                <h3>Torta de chocolate</h3>
+                <p>Massa de bolacha de chocolate, ganache trufado e cobertura de Brigadeiro, <br>
+                     decoração de brigadeiros e morangosos<p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> Tamanho médio 20 cm de diâmetro 8 fatias 90,00<br>
+                    Tamanho grande 25 cm de diâmetro 12 fatias 130,00<br>
+                </p>
+            </div>
+            <p class="preco"> R$90,00 </p>
+        </div>
+
+
+        <div class="item">
+            <img src="img/card10" alt="Torta de palha italiana"onclick="abrirModal(this)">
+            <div>
+                <h3>Torta de palha italiana</h3>
+                <p>Torta de palha italiana com uma camada de palha italiana outra<br>
+                     camada de chantilly e cobertura de ganache meio amargo deliciosa<p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> tamanho médio 80,00 serve 8 fatias <br>
+                    Tamanho grande 120,00 serve 12 fatias<br>
+                </p>
+            </div>
+            <p class="preco"> R$80,00 </p>
+        </div>
+
+
+
+        <div class="item">
+            <img src="img/card11" alt="Pavê da vovó" onclick="abrirModal(this)">
+            <div>
+                <h3>Pavê da vovó</h3>
+                <p>Delicioso creme patisserie (creme belga) com bolachas maisena em camadas,<br>
+                     cobertura de ganache trufado e raspas de chocolate<p>
+                </p> Disponível nos tamanhos:</p>
+
+                <p> montamos na sua travessa preço por kg 1 kg 60,00<br>
+                </p>
+            </div>
+            <p class="preco"> R$60,00</p>
+        </div>
+
+        
+
+
+        
+        <div class="item">
+            <img src="img/card12" alt="Pavlova de frutas vermelhas" onclick="abrirModal(this)">
+            <div>
+                <h3>Pavlova de frutas vermelhas</h3>
+                
+                </p> Disponível nos tamanhos:</p>
+
+               
+            </div>
+            <p class="preco"> R$120,00 </p>
+        </div>
+
+   <div class="item">
+            <img src="img/card38" alt="pao de mel"onclick="abrirModal(this)">
+            <div>
+                <h3>Pão de mel</h3>
+                <p>Delicioso pão de mel de doce de leite.<p>
+                
+            </div>
+            <p class="preco"> R$6,50 </p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <section class="catalog">
+            <h2>Bolos   </h2>
+    
+            <div class="item">
+                <img src="img/card14" alt="Damasco com baba de moça" onclick="abrirModal(this)">
+                <div>
+                    <h3>Damasco com baba de moça</h3>
+                    <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.<p>
+                        
+                    </p> Disponível nos tamanhos:</p>
+                    <p>Bolo P Aproximadamente 1.300 kg  10  a 14 fatias<br>
+                        Bolo médio 2.300 kg  225,00 serve de 20 a 25 fatias</p>
+                        <p>Pode ser decorada com flores  (Adicional de flores 15,00 ) </p>
+                </div>
+                <p class="preco">R$ 130,00 </p>
+            </div>
+       
+         <div class="item">
+                <img src="img/card15" alt="Bolo Folhado de uva" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo Folhado de uva</h3>
+                    <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho p 1.400 kg.<br>
+                      </p>
+                 
+                  <P>  Plaquinha não inclusa, valor adicional de R$15,00</P>
+
+                </div>
+                <p class="preco">R$125,00 </p>
+            </div>
+
+            
+       <div class="item">
+                <img src="img/card26" alt="Bolo de chocolate com kitkat"onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo de chocolate com kitkat</h3>
+                    <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p>   tamanho P  1.400 kg<br>
+                      </p>
+                </div>
+                <p class="preco"> R$150,00 </p>
+            </div>
+
+
+            <div class="item">
+                <img src="img/card17" alt="Bolo chocoamargo"onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo chocoamargo</h3>
+                    <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.<p>
+                    </p> Disponível nos tamanho:</p>
+
+                    <p> Bolo de chocolate meio amargo, decorações de brigadeiros 1.200 kg<br>
+                      </p>
+                    
+
+                </div>
+                <p class="preco"> R$115,00 </p>
+            </div>
+
+
+
+
+            <div class="item">
+                <img src="img/card18" alt="Bolo Brigadeiro e morango cobertura de chocolate"onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo Brigadeiro e morango cobertura de chocolate</h3>
+                    <p>Delicioso bolo de Brigadeiro e morangos frescos cobertura de chocolate<p>
+                    </p> Disponível nos tamanho:</p>
+
+                    <p> tamanho P 1.300 kg  rende de 10 a 14 fatias<br>
+                      </p>
+                   
+                </div>
+                <p class="preco"> R$135,00 </p>
+            </div>
+
+
+
+
+
+            <div class="item">
+                <img src="img/card19" alt="Leite ninho com morango"onclick="abrirModal(this)">
+                <div>
+                    <h3>Leite ninho com morango</h3>
+                    <p>Uma deliciosa combinação de brigadeiro, morango e leite ninho.<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P 140,00 1.200 kg serve 10 fatias<br>
+                        Tamanho médio 230,00.  2 kg serve 20 fatias<br>
+                      </p>
+                  
+     
+
+                </div>
+                <p class="preco"> R$125,00 </p>
+            </div>
+
+
+
+   
+
+
+
+            <div class="item">
+                <img src="img/card34" alt="Bolo Brigadeiro com crocante" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo Brigadeiro com crocante</h3>
+                    <p>Deliciosa massa de chocolate com recheio de chocolate e crocante de nozes <BR>
+                        Decoração linda com astromelias.<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P. 1.300 kg  rende 10 fatias <BR>
+                        Tamanho M 2.100 rende 20 fatias  220,00<br>
+                    </p>
+                </div>
+                <p class="preco">R$130,00 </p>
+            </div>
+
+
+
+
+            
+
+
+            <div class="item">
+                <img src="img/card21" alt="Bolo camafeu de nozes com doce de leite"onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo camafeu de nozes com doce de leite</h3>
+                    <p>Bolo massa de nozes com recheio cremoso de nozes e doce se leite,<BR>
+                         cobertura crocante com muitas nozes..<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P  1.300 kg<br>
+                    </p>
+                </div>
+                <p class="preco"> R$145,00 </p>
+            </div>
+
+
+
+
+            <div class="item">
+                <img src="img/card22" alt=" Bolo prestígio" onclick="abrirModal(this)">
+                <div>
+                    <h3>
+                        Bolo prestígio</h3>
+                    <p>Delicioso bolo de prestigio, massa de chocolate e delicioso recheio de coco,<BR>
+                         decoração com brigadeiros de beijinho<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P   1.500 rende 12  fatias<BR>
+                        Tamanho médio 2.300  210,00 rende de 20 a 25 fatias <BR>
+                        Tamanho G  300,00 rende de 30 a 35 fatias<br>
+                    </p>
+                </div>
+                <p class="preco"> R$120,00 </p>
+            </div>
+
+
+            <div class="item">
+                <img src="img/card23" alt="Bolo merengue de morango" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo merengue de morango</h3>
+                    <p>Delicioso bolo merengue de morango 
+                        Leve e saboroso .<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P 1.300 aproximadamente serve 13 fatias de 100 gramas<br>
+                    </p>
+                </div>
+                <p class="preco"> R$125,00 </p>
+            </div>
+
+
+
+         
+
+            <div class="item">
+                <img src="img/card24" alt="Bolo pistache" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo de pistache</h3>
+                    <p>Delicioso bolo de pistache com frutas vermelhas <br>
+                        Massa branca com Amêndoas laminadas e essa decoração <br>
+                        de chocolate branco pra lá de especial<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P 175,00 <br>
+                        Tamanho M 310,00<br>
+                    </p>
+                </div>
+                <p class="preco"> R$175,00 </p>
+            </div>
+
+
+
+
+
+            <div class="item">
+                <img src="img/card25" alt="Merengue de morango" onclick="abrirModal(this)">
+                <div>
+                    <h3>Merengue de morango</h3>
+                    <p>Massa pão de ló branco, com recheio de brigadeiro branco leve <br>
+                        e suave com pedaços de morangos frescos , cobertura de chantininho<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P Aproximadamente  1.400 kg<br>
+                    </p>
+                </div>
+                <p class="preco"> R$115,00 </p>
+            </div>
+
+
+
+
+            <div class="item">
+                <img src="img/card27" alt="Bolo de abacaxi" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo de abacaxi</h3>
+                    <p>Bolo de amabaxi cobertura de chantininho</p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> tamanho P  100,00  aproximadamente  1.200 kg
+                        Tamanho médio 2.200 kg.  190,00<br>
+                    </p>
+                </div>
+                <p class="preco"> R$100,00 </p>
+            </div>
+
+
+
+
+
+            <div class="item">
+                <img src="img/card28" alt="Bolo floresta Negra" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo floresta Negra</h3>
+                    <p>Delicioso bolo floresta negra com muita cereja.<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> 1.200 serve 10 fatias
+                        Tamanho médio 2.200 kg R$200,00 serve de 20 a 24 fatias <br>
+                        Bolo grande serve de 30 a 34 fatias 300,00<br>
+                    </p>
+                </div>
+                <p class="preco"> R$200,00 </p>
+            </div>
+
+
+            <div class="item">
+                <img src="img/card29" alt="Bolo leite ninho com nutella"onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo leite ninho com nutella</h3>
+                    <p>Bolo leite ninho com nutella, massa branca ou preta  recheio de <br>
+                        leite ninho cremoso e Nutella original, cobertura de Brigadeiro (Brigadeiro escorendo ) e<br>
+                         Brigadeiros de leite ninho com nutella , cobertura de chantininho<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P 1.400 kg.  120,00<br>
+                        Tamanho médio  2.300 kg   210,00<br>
+                    </p>
+                </div>
+                <p class="preco"> R$120,00 </p>
+            </div>
+
+
+
+
+            <div class="item">
+                <img src="img/card30" alt="Bolo bicolor"onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo bicolor</h3>
+                    <p>Bolo bicolor Brigadeiro suave branco e Brigadeiro preto,
+                        <br> recheio super suave com raspas de chocolate<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> tamanho P  1.100 rende   de 8 a 10  fatias<br>
+                    </p>
+                </div>
+                <p class="preco"> R$85,00 </p>
+            </div>
+
+
+
+
+            <div class="item">
+                <img src="img/card31" alt="Bolo de nozes com Baba de moça" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo de nozes com Baba de moça</h3>
+                    <p>Bolo de nozes com baba de moça <br>
+                        Massa de nozes, cobertura de merengue suíço e 
+                        <br>decoração ao centro se baba de moça</p>
+
+                </div>
+                <p class="preco">R$115,00 </p>
+            </div>
+
+
+
+            <div class="item">
+                <img src="img/card37" alt="Brigadeiro com crocante (cobertura de Brigadeiro)" onclick="abrirModal(this)">
+                <div>
+                    <h3>Brigadeiro com crocante (cobertura de Brigadeiro)</h3>
+                    <p>Delicioso Bolo Brigadeiro com crocante<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P  1.400 kg <br>
+                        Tamanho médio  2.400 kg serve de 20 a 25 fatias  200,00)<br>
+                    </p>
+                </div>
+                <p class="preco">R$110,00 </p>
+            </div>
+
+   
+
+
+
+
+            
+
+
+            <div class="item">
+                <img src="img/card32" alt="Bolo Brigadeiro e leite ninho" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo Brigadeiro e leite ninho</h3>
+                    <p>Bolo Brigadeiro e leite ninho com decorações de brigadeiros<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p> Tamanho P 1.500 kg (não acompanha plaquinha )<br>
+                    </p>
+                </div>
+                <p class="preco"> R$135,00 </p>
+            </div>
+
+
+
+
+            <div class="item">
+                <img src="img/card33" alt="Bolo Brigadeiro com crocante" onclick="abrirModal(this)">
+                <div>
+                    <h3>Bolo Brigadeiro com crocante</h3>
+                    <p>Brigadeiro com crocante com cobertura de brigadeiros e<br>
+                         brigadeiros enrolados em cima, uma explosão de chocolate<p>
+                    </p> Disponível nos tamanhos:</p>
+
+                    <p>Tamanho P   1.300 kg<br>
+                    </p>
+                </div>
+                <p class="preco"> R$130,00 </p>
+            </div>
+
+
+
+        </section>
+    </section></section>
+
+    <div class="modal" id="meuModal">
+        <span class="fechar" onclick="fecharModal()">&times;</span>
+        <img class="conteudo-modal" id="imgModal" alt="Imagem do item">
+    </div>
+
+    <script>
+        function abrirModal(img) {
+            const modal = document.getElementById("meuModal");
+            const imgModal = document.getElementById("imgModal");
+            modal.style.display = "flex";
+            imgModal.src = img.src;
+        }
+
+        function fecharModal() {
+            const modal = document.getElementById("meuModal");
+            modal.style.display = "none";
+        }
+
+        // Fechar o modal ao clicar fora da imagem
+        window.onclick = function(evento) {
+            const modal = document.getElementById("meuModal");
+            if (evento.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</section>
+
+<footer>
+    <p>&copy; 2024 Confeitaria Exemplo. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>

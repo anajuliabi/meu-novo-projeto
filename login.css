@@ -1,0 +1,147 @@
+/* Importação da fonte */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Definindo as cores */
+:root {
+    --cor-primaria: #ffb700;
+    --cor-secundaria: #e7c161;
+    --cor-texto: #94846b;
+    --cor-fundo: #121212;
+    --cor-branco: #fff;
+}
+
+/* Resetando margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo do corpo da página */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Snell Roundhand';
+    background-color: var(--cor-fundo);
+}
+
+/* Estilo do Container de Login */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo da Caixa de Login */
+.caixa-login {
+    padding: 40px;
+    width: 50%;
+    color: var(--cor-branco);
+}
+
+/* Título da Caixa de Login */
+.caixa-login h2 {
+    font-size: 2em;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+}
+
+/* Grupo de Inputs */
+.input-grupo {
+    margin-bottom: 15px;
+}
+
+/* Estilo do Label do Input */
+.input-grupo label {
+    font-size: 0.9em;
+    color: var(--cor-texto);
+}
+
+/* Estilo do Input */
+.input-grupo input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--cor-secundaria);
+    border-radius: 8px;
+    background-color: #333;
+    color: var(--cor-branco);
+    font-size: 0.9em;
+}
+
+/* Estilo do Botão */
+.botao {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    background: linear-gradient(45deg, #ff8a00, #e52e71);
+    color: var(--cor-branco);
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Efeito de Hover no Botão */
+.botao:hover {
+    transform: scale(1.05);
+}
+
+/* Parágrafo na Caixa de Login */
+.caixa-login p {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--cor-texto);
+}
+
+/* Estilo do Link */
+.caixa-login a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+/* Efeito de Hover no Link */
+.caixa-login a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo da Imagem Lateral */
+.imagem-lateral {
+    width: 250px;
+    height: 250px; 
+    border-radius: 10%;
+    background: url('img/logofcial.jpeg') no-repeat center center;
+    background-size: cover;
+}
+
+/* Estilos para dispositivos menores */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .caixa-login, .imagem-lateral {
+        width: 100%;
+    }
+
+    .caixa-login {
+        padding: 20px;
+    }
+
+    .caixa-login h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .caixa-login h2 {
+        font-size: 1.6em;
+    }
+}

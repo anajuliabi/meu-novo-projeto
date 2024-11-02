@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Caixa de Login -->
+        <div class="caixa-login" id="login-box">
+            <h2>Bem-vindo!</h2>
+
+            <form id="login-form" action="php/login.php" method="post">
+                <div class="input-grupo">
+                    <label for="email">E-mail</label>
+                    <input type="text" id="email" name="email" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="input-grupo">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="botao">Entrar</button>
+                <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
+
+        
+            </form>
+        </div>
+        
+        <!-- Imagem Lateral -->
+        <div class="imagem-lateral">
+        </div>
+    </div>
+</body>
+</html>

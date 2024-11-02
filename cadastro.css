@@ -1,0 +1,131 @@
+:root {
+    --cor-primaria: #ffb700;
+    --cor-secundaria: #e7c161;
+    --cor-texto: #94846b;
+    --cor-fundo: #121212;
+    --cor-branco: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Snell Roundhand';
+    background-color: var(--cor-fundo);
+}
+
+.container-autenticacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.caixa-autenticacao {
+    padding: 40px;
+    width: 100%;
+    color: var(--cor-branco);
+}
+
+.caixa-autenticacao h2 {
+    font-size: 2em;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.linha-formulario {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.grupo-input {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 15px;
+}
+
+.grupo-input label {
+    font-size: 0.9em;
+    color: var(--cor-texto);
+}
+
+.grupo-input input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--cor-secundaria);
+    border-radius: 8px;
+    background-color: #333;
+    color: var(--cor-branco);
+    font-size: 0.9em;
+}
+
+.btn-principal {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    background: linear-gradient(45deg, #ff8a00, #e52e71);
+    color: var(--cor-branco);
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.btn-principal:hover {
+    transform: scale(1.05);
+}
+
+.caixa-autenticacao p {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--cor-texto);
+    text-align: center;
+}
+
+.caixa-autenticacao a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+.caixa-autenticacao a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .linha-formulario {
+        flex-direction: column;
+    }
+
+    .grupo-input {
+        min-width: 100%;
+    }
+
+    .caixa-autenticacao {
+        padding: 20px;
+    }
+
+    .caixa-autenticacao h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .caixa-autenticacao h2 {
+        font-size: 1.6em;
+    }
+}
